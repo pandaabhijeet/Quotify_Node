@@ -10,6 +10,9 @@ const jwt = require('jsonwebtoken');
 
 router.post('/register', async (req,res) => {
   //Validate userdata before inserting into DB
+  console.log(req.body);
+  return res.status(400).send(req.body.username);
+
   const {error} = registerValidation(req.body);
 
    if(error)
