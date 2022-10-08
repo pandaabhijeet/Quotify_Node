@@ -12,6 +12,7 @@ router.post('/register', async (req,res) => {
   //Validate userdata before inserting into DB
   console.log(req.body);
   if(req.body == null){
+    console.log('Req is null');
     return res.status(400).send("Req is null");
   } else 
   {
