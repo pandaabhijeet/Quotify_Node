@@ -14,11 +14,7 @@ router.post('/register', async (req,res) => {
   if(req.body == null){
     console.log('Req is null');
     return res.status(400).send("Req is null");
-  } else 
-  {
-    return res.status(400).send(req.body);
   }
- 
 
   const {error} = registerValidation(req.body);
 
