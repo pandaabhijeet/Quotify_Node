@@ -20,6 +20,7 @@ router.post('/register', async (req,res) => {
 
    if(error)
    {
+     console.log(error.message);
      return res.status(400).send(error.message);
    }
    
@@ -27,6 +28,7 @@ router.post('/register', async (req,res) => {
     const emailExists = await User.findOne({email:req.body.email});
      if(emailExists) 
      {
+      console.log('Email already exists !');
        return res.status(400).send('Email already exists !');
      }
      //if not proceed register the user
@@ -45,6 +47,7 @@ router.post('/register', async (req,res) => {
 
     try{
         const savedUser = await user.save();
+        console.log(savedUser);
         res.send(savedUser);
         }catch(err){
         res.status(400).send(err);
