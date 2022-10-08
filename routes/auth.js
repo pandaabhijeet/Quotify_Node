@@ -48,11 +48,16 @@ router.post('/register', async (req,res) => {
     try{
         const savedUser = await user.save();
         console.log(savedUser);
-        //res.send(savedUser);
-        res.send('Success : Sign Up Successfull');
+        res.send(
+          {
+            id : savedUser._id,
+            username : savedUser.username,
+            email : savedUser.email,
+            password : savedUser.password,
+          }
+          );
         }catch(err){
-        //res.status(400).send(err);
-        res.send('err : Error');
+        res.status(400).send(err);
         console.log(err);
         }
      }
