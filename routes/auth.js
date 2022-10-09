@@ -13,7 +13,7 @@ router.post('/register', async (req,res) => {
   console.log(req.body);
   if(req.body == null){
     console.log('Req is null');
-    return res.status(400).send("Req is null");
+    return res.send("Req is null");
   }
 
   const {error} = registerValidation(req.body);
@@ -21,7 +21,7 @@ router.post('/register', async (req,res) => {
    if(error)
    {
      console.log(error.message);
-      res.status(400).send({
+      res.send({
       error : error.message,
       success : false
     });
@@ -33,7 +33,7 @@ router.post('/register', async (req,res) => {
      if(emailExists) 
      {
       console.log('Email already exists !');
-        res.status(400).send(
+        res.send(
         {
           error:'Email already exists !',
           success: false
@@ -67,7 +67,7 @@ router.post('/register', async (req,res) => {
           });
 
         }catch(err){
-        res.status(400).send({
+        res.send({
           error : err,
           success : false
         });
