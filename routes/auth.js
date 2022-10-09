@@ -36,7 +36,7 @@ router.post('/register', async (req,res) => {
         res.status(400).send(
         {
           error:'Email already exists !',
-          success:'false'
+          success: false
         });
         return;
      }
