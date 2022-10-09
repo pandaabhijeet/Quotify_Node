@@ -21,10 +21,11 @@ router.post('/register', async (req,res) => {
    if(error)
    {
      console.log(error.message);
-      return res.status(400).send({
+      res.status(400).send({
       error : error.message,
       success : false
     });
+    return;
    }
    
    //validate if user email alreqady exists, if yes send error
@@ -32,11 +33,12 @@ router.post('/register', async (req,res) => {
      if(emailExists) 
      {
       console.log('Email already exists !');
-       return res.status(400).send(
+        res.status(400).send(
         {
           error:'Email already exists !',
           success:'false'
         });
+        return;
      }
      //if not proceed register the user
      //encrypt the password
