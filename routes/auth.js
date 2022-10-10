@@ -82,7 +82,11 @@ router.post('/login', async(req,res) =>
   const {error} = loginValidation(req.body);
   if(error)
   {
-    return res.status(400).send(error.message);
+    return res.send(
+      {
+        error : error.message,
+        success : false
+      });
   }
 
  //check if user exists
@@ -90,7 +94,11 @@ router.post('/login', async(req,res) =>
  const user = await User.findOne({email:req.body.email});
  if(!user)
  {
-  return res.status(400).send("User doesn't exist. Please register.");
+  return res.send(
+    {
+     error : "User doesn't exist. Please register.",
+     success : false
+  });
  }
  //if user exists, check for correct password
  else
@@ -98,12 +106,23 @@ router.post('/login', async(req,res) =>
    const validPassword = await bcrypt.compare(req.body.password,user.password); 
    if(!validPassword)
    {
-     return res.status(400).send("Entered password is incorrect. Please check and enter again.");
+     return res.send(
+      {
+        error : "Entered password is incorrect. Please check and enter again.",
+        success : false
+      });
    }
 
    //create and assina json web token
 
    const token = jwt.sign({_id:user._id},process.env.TOKEN_SECRET);
+
+   res.send(
+    {
+      email : req.body.email,
+      success : true,
+      token : token
+    });
    res.header('auth-token', token).send(token);
  }
 }); 
