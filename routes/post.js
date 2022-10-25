@@ -3,10 +3,17 @@ const User = require('../models/User');
 const verify = require('./verifyToken');
 const router = express.Router();
 
-router.get('/:id',(req,res) => 
+router.get('/:id',async (req,res) => 
 {
-    const getUser = User.findById(req.params.id);
-    return res.send(getUser);
+    try{
+
+        const getUser = await User.findById(req.params.id);
+        return res.send(getUser);
+
+    }catch(err)
+    {
+        console.log(err);
+    }
 });
 
 router.patch('/:id',async (req,res) => 
