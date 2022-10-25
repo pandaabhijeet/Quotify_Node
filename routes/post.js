@@ -7,7 +7,7 @@ router.get('/',async (req,res) =>
 {
     try{
 
-        const getUser = await User;
+        const getUser = await User.find();
         return res.send(getUser);
 
     }catch(err)
