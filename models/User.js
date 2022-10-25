@@ -25,7 +25,17 @@ password : {
 date : {
     type : Date,
     default : Date.now
-}
+},
+
+profile_image : {
+    type : String,
+    default : ""
+},
+
+fav_quote : {
+    type : String,
+    deafault : ""
+},
 
 });
 

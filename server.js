@@ -14,7 +14,7 @@ dbConnect;
 quotifyApp.use(express.json());
 //middleware route:
 quotifyApp.use('/api/user', authRoutes);
-quotifyApp.use('/api/post', postRoutes);
+quotifyApp.use('/api/user', postRoutes);
 
 const PORT = String(process.env.PORT || 3000);
 quotifyApp.listen(PORT, () => console.log('Server is Up and Running !'));
