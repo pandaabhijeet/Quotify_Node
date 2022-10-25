@@ -34,7 +34,7 @@ profile_image : {
 
 fav_quote : {
     type : String,
-    deafault : ""
+    default : ""
 },
 
 });
