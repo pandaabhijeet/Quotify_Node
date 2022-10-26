@@ -12,7 +12,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({
     storage : storage,
-    fileFilter :function(req,file,cb)
+    fileFilter :function(req,file,callback)
     {
         if(
             file.mimetype == "image/png" || 
@@ -20,11 +20,11 @@ var upload = multer({
             file.mimetype == "image/jpeg"
           )
           {
-            cb(null,true);
+            callback(null,true);
           }else 
           {
             console.log("File format not accepted.");
-            cb(null,false);
+            callback(null,false);
           }
     }
 });

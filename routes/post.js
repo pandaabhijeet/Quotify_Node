@@ -26,8 +26,11 @@ router.patch('/profile_image/:id',upload.single('profileImage'),async(req,res) =
         const path = req.file.path.replace(/\\/g, "/");
         const updatedUser = await User.findOneAndUpdate(id, req.body = {
             profile_image : "https://quotifyapplication.herokuapp.com/" + path
-        });
+        },
+        {new : true}
+        );
 
+        updatedUser.save();
         console.log(updatedUser);
         return res.send(updatedUser);
 
