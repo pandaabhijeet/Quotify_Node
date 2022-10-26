@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const verify = require('./verifyToken');
 const router = express.Router();
+const upload = require('../middlewares/upload');
 
 router.get('/',async (req,res) => 
 {
@@ -16,7 +17,7 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.patch('/:id',async (req,res) => 
+router.patch('/profile_image/:id',async(req,res) => 
 {
     if(req.params.id != null)
     {
@@ -24,11 +25,22 @@ router.patch('/:id',async (req,res) =>
 
         try
         {
-            const _id = req.params.id;
-            const updateUser = await User.findByIdAndUpdate(_id,req.body);
-            console.log(updateUser);
+             upload(async (req,res,err) =>{
+                if(err)
+                {
+                    console.log(err);
+                    return res.send(err);
+                }else 
+                {
+                    const _id = req.params.id;
+                    const user =  User.findById(_id);
 
-            return res.send(updateUser);
+                    const updatedUser = await user.update(profile_image,req.body.profile_image);
+                    console.log(updateUser);
+                    return res.send (updatedUser);
+                }
+            });
+            
 
         } catch(err)
         {
