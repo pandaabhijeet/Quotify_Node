@@ -17,36 +17,24 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.patch('/profile_image/:id',async(req,res) => 
+router.patch('/profile_image/:id',upload.single('profileImage'),async(req,res) => 
 {
     if(req.params.id != null)
     {
+        const id = req.params.id;
         console.log(`Update: ${req.params.id}`);
+        const path = req.file.path.replace(/\\/g, "/");
+        const updatedUser = await User.findOneAndUpdate(id, req.body = {
+            profile_image : "https://quotifyapplication.herokuapp.com/" + path
+        });
 
-        try
-        {
-             upload(async (req,res,err) =>{
-                if(err)
-                {
-                    console.log(err);
-                    return res.send(err);
-                }else 
-                {
-                    const _id = req.params.id;
-                    const user =  User.findById(_id);
+        console.log(updatedUser);
+        return res.send(updatedUser);
 
-                    const updatedUser = await user.update(profile_image,req.body.profile_image);
-                    console.log(updateUser);
-                    return res.send (updatedUser);
-                }
-            });
-            
 
-        } catch(err)
-        {
-            console.log(err);
-            return res.send(err);
-        }
+    }else 
+    {
+        console.log('No user with given id');
     }
 });
 
