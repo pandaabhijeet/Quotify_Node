@@ -3,9 +3,8 @@ const multer = require('multer');
 
 var disk_storage = multer.diskStorage({
 
-    destination : function(req,file,cb){
-        cb(null,'/profile_images')
-    },
+    destination : 'profile_image/',
+
     filename : (req, file, cb) => {
 
         let ext = path.extname(file.originalname);
