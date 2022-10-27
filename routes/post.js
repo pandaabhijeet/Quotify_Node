@@ -17,7 +17,7 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.patch('/profile_image/:id',upload.single('profileImage'),async(req,res) => 
+router.post('/profile_image/:id',upload.single('profileImage'),async(req,res) => 
 {
     if(req.params.id != null)
     {
