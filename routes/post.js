@@ -3,6 +3,7 @@ const User = require('../models/User');
 const verify = require('./verifyToken');
 const router = express.Router();
 const upload = require('../middlewares/upload');
+const imagemodel = require('../models/imagemodel');
 
 router.get('/',async (req,res) => 
 {
@@ -23,12 +24,44 @@ router.post('/profile_image/:id',upload.single('profileImage'),async(req,res) =>
     {
         const id = req.params.id;
         console.log(`Update: ${req.params.id}`);
-        const path = req.file.path.replace(/\\/g, "/");
-        const updatedUser = await User.findOneAndUpdate(id, req.body = {
-            profile_image : "https://quotifyapplication.herokuapp.com/" + path
-        },
-        {new : true}
-        );
+
+        // //const path = req.file.path.replace(/\\/g, "/");
+        // const updatedUser = await User.findOneAndUpdate(id, req.body = {
+        //     profile_image : "https://quotifyapplication.herokuapp.com/" + path
+        // },
+        // {new : true}
+        // );
+        upload(req,res,(err) => {
+            if(err){
+                console.log(err);
+            }else {
+                const prof_image = new imagemodel({
+                    image : {
+                        data : req.file.filename,
+                        contentType : 'image/*'
+                    }
+                });
+                prof_image.save()
+                .then(() => res.send('Uploaded successfully')
+                .catch(err => console.log(err)));
+
+                try{
+                    const updatedUser = User.findByIdAndUpdate(id, req.body = {
+                        profile_image : prof_image
+                    });
+                    
+                    console.log(updatedUser);
+                    return res.send(updatedUser);
+                } catch(err)
+                {
+                    console.log(err);
+                    return res.send(err);
+                }
+               
+                
+            }
+        })
+        
 
         updatedUser.save();
         console.log(updatedUser);

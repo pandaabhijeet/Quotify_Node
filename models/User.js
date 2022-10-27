@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const imagemodel = require('./imagemodel').schema;
 
 const userSchema = new mongoose.Schema({
 
@@ -28,14 +29,13 @@ date : {
 },
 
 profile_image : {
-    type : String,
-    default : ""
+    type : imagemodel
 },
 
 fav_quote : {
     type : String,
     default : ""
-},
+}
 
 });
 
