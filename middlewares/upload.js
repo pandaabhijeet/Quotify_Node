@@ -27,6 +27,6 @@ var upload = multer({
             callback(null,false);
           }
     }
-});
+}).single('profileImage');
 
 module.exports = upload;

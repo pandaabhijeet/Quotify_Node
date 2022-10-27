@@ -61,7 +61,7 @@ router.post('/profile_image/:id',(req,res) =>
                
                 
             }
-        },single('profileImage'));
+        });
 
     }else 
     {
