@@ -4,6 +4,7 @@ const verify = require('./verifyToken');
 const router = express.Router();
 const upload = require('../middlewares/upload');
 const imagemodel = require('../models/imagemodel');
+const { single } = require('../middlewares/upload');
 
 router.get('/',async (req,res) => 
 {
@@ -18,7 +19,7 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.post('/profile_image/:id',upload.single('profileImage'),async(req,res) => 
+router.post('/profile_image/:id',(req,res) => 
 {
     if(req.params.id != null)
     {
@@ -60,13 +61,7 @@ router.post('/profile_image/:id',upload.single('profileImage'),async(req,res) =>
                
                 
             }
-        })
-        
-
-        updatedUser.save();
-        console.log(updatedUser);
-        return res.send(updatedUser);
-
+        },single('profileImage'));
 
     }else 
     {
