@@ -43,8 +43,7 @@ router.post('/profile_image/:id',(req,res) =>
                     }
                 });
                 prof_image.save()
-                .then(() => res.send('Uploaded successfully')
-                .catch(err => console.log(err)));
+                .catch(err => console.log(err));
 
                 try{
                     const updatedUser = User.findByIdAndUpdate(id, req.body = {
