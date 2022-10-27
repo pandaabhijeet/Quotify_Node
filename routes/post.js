@@ -39,24 +39,25 @@ router.post('/profile_image/:id',(req,res) =>
                 const prof_image = new imagemodel({
                     image : {
                         data : req.file.filename,
-                        contentType : 'image/*'
+                        contentType : 'image/png'
                     }
                 });
                 prof_image.save()
+                .then(console.log('saved'))
                 .catch(err => console.log(err));
 
-                try{
-                    const updatedUser = User.findByIdAndUpdate(id, req.body = {
-                        profile_image : prof_image
-                    });
+                // try{
+                //     const updatedUser = User.findByIdAndUpdate(id, req.body = {
+                //         profile_image : prof_image
+                //     });
                     
-                    console.log(updatedUser);
-                    return res.send(updatedUser);
-                } catch(err)
-                {
-                    console.log(err);
-                    return res.send(err);
-                }
+                //     console.log(updatedUser);
+                //     return res.send(updatedUser);
+                // } catch(err)
+                // {
+                //     console.log(err);
+                //     return res.send(err);
+                // }
                
                 
             }
