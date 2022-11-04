@@ -4,8 +4,6 @@ const verify = require('./verifyToken');
 const router = express.Router();
 const upload = require('../middlewares/upload');
 const imagemodel = require('../models/imagemodel');
-const { single } = require('../middlewares/upload');
-
 router.get('/',async (req,res) => 
 {
     try{
@@ -19,54 +17,10 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.post('/profile_image/:id',(req,res) => 
+router.post('/profile_image', upload.single('profileImage') , (req,res) =>
 {
-    if(req.params.id != null)
-    {
-        const id = req.params.id;
-        console.log(`Update: ${req.params.id}`);
-
-        // //const path = req.file.path.replace(/\\/g, "/");
-        // const updatedUser = await User.findOneAndUpdate(id, req.body = {
-        //     profile_image : "https://quotifyapplication.herokuapp.com/" + path
-        // },
-        // {new : true}
-        // );
-        upload(req,res,(err) => {
-            if(err){
-                console.log(err);
-            }else {
-                const prof_image = new imagemodel({
-                    image : {
-                        data : req.file.filename,
-                        contentType : 'image/png'
-                    }
-                });
-                prof_image.save()
-                .then(console.log('saved'))
-                .catch(err => console.log(err));
-
-                // try{
-                //     const updatedUser = User.findByIdAndUpdate(id, req.body = {
-                //         profile_image : prof_image
-                //     });
-                    
-                //     console.log(updatedUser);
-                //     return res.send(updatedUser);
-                // } catch(err)
-                // {
-                //     console.log(err);
-                //     return res.send(err);
-                // }
-               
-                
-            }
-        });
-
-    }else 
-    {
-        console.log('No user with given id');
-    }
+    console.log(req.body.file);
 });
+
 
 module.exports = router;
