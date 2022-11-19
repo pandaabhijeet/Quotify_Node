@@ -17,9 +17,28 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.post('/profile_image', upload.single('profileImage') , (req,res) =>
+router.post('/profile_image' , (req,res) =>
 {
     console.log(req.body.file);
+    upload(req,res,(err) => {
+        if(err)
+        {
+            console.log(err);
+            return res.send(err);
+        }else 
+        {
+            const uploadImage = new imagemodel({
+                image : {
+                    data : req.file.filename,
+                    contentType : 'image/png'
+                }
+            });
+        }
+
+        uploadImage.save()
+        .then(() => res.send('Successfull'))
+        .catch((err) => console.log(err));
+    })
 });
 
 
