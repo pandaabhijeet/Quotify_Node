@@ -33,11 +33,18 @@ router.post('/profile_image' , (req,res) =>
                     contentType : 'image/png'
                 }
             });
+
+            uploadImage.save()
+            .then(() => {
+                console.log('Successfull');
+                return res.send('Successfully Uploaded');
+            }).catch(err)
+            {
+                console.log(err);
+            }
         }
 
-        uploadImage.save()
-        .then(() => res.send('Successfull'))
-        .catch((err) => console.log(err));
+       
     })
 });
 
