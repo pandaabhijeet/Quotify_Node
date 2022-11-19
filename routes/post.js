@@ -4,6 +4,7 @@ const verify = require('./verifyToken');
 const router = express.Router();
 const upload = require('../middlewares/upload');
 const imagemodel = require('../models/imagemodel');
+const buffer = require('buffer');
 router.get('/',async (req,res) => 
 {
     try{
@@ -54,7 +55,9 @@ router.get('/profile_image/:id', async (req,res) =>
    try{
     const _id = req.params.id;
     const imageData =  await imagemodel.findById(_id);
-    return res.json(imageData);
+
+    const base64Data = Buffer.from(imageData,'binary').toString('base64url');
+    return res.json(base64Data);
 
    } catch (err)
    {
