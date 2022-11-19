@@ -48,5 +48,21 @@ router.post('/profile_image' , (req,res) =>
     })
 });
 
+router.get('/profile_image/:id', async (req,res) => 
+{
+  
+   try{
+    const _id = req.params.id;
+    const imageData =  await imagemodel.findById(_id);
+    return res.json(imageData);
+
+   } catch (err)
+   {
+    console.log(err);
+    return res.send(err);
+   }
+   
+}); 
+
 
 module.exports = router;
