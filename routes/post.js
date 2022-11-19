@@ -56,8 +56,8 @@ router.get('/profile_image/:id', async (req,res) =>
     const _id = req.params.id;
     const imageData =  await imagemodel.findById(_id);
 
-    const base64Data = Buffer.from(imageData.image.data,'binary').toString('base64url');
-    return res.json(base64Data);
+    //const base64Data = Buffer.from(imageData.image.data,'binary').toString('base64url');
+    return res.json(imageData);
 
    } catch (err)
    {
