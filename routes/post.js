@@ -18,8 +18,9 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.post('/profile_image' , (req,res) =>
+router.post('/profile_image:id' , (req,res) =>
 {
+    const _id = req.param.id;
     console.log(req.body.file);
     upload(req,res,(err) => {
         if(err)
@@ -30,6 +31,7 @@ router.post('/profile_image' , (req,res) =>
         {
             const uploadImage = new imagemodel({
                 image : {
+                    id : _id,
                     data : req.file.filename,
                     contentType : 'image/png'
                 }

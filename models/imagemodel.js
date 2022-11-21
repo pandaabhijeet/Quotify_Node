@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const ImageSchema = mongoose.Schema({
     image : {
-        data : ImageBitmap,
+        id : String,
+        data : String,
         contentType : String
     }
 });
