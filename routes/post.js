@@ -37,10 +37,15 @@ router.post('/profile_image/:id' , (req,res) =>
                 }
             });
 
-            uploadImage.save()
+           const uploadedImage = uploadImage.save()
             .then(() => {
+                
+                const updatedUser = User.findByIdAndUpdate(_id,
+                    {profile_image : uploadedImage.data.path});
+
                 console.log('Successfull');
-                return res.send('Successfully Uploaded');
+                console.log(updatedUser);
+                return res.send(updatedUser);
             }).catch(err)
             {
                 console.log(err);
