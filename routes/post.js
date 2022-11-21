@@ -18,9 +18,9 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.post('/profile_image:id' , (req,res) =>
+router.post('/profile_image/:id' , (req,res) =>
 {
-    const _id = req.param.id;
+    const _id = req.params.id;
     console.log(req.body.file);
     upload(req,res,(err) => {
         if(err)
