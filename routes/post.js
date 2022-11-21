@@ -40,8 +40,7 @@ router.post('/profile_image/:id' , (req,res) =>
            const uploadedImage = uploadImage.save()
             .then(() => {
                 
-                const updatedUser = User.findByIdAndUpdate(_id,
-                    {profile_image : uploadedImage.data.path});
+                const updatedUser = User.findByIdAndUpdate(_id, {profile_image : req.file.path});
 
                 console.log('Successfull');
                 console.log(updatedUser);
