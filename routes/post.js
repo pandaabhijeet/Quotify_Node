@@ -5,6 +5,8 @@ const router = express.Router();
 const upload = require('../middlewares/upload');
 const imagemodel = require('../models/imagemodel');
 const buffer = require('buffer');
+const path = require('path');
+
 router.get('/',async (req,res) => 
 {
     try{
@@ -21,30 +23,36 @@ router.get('/',async (req,res) =>
 router.post('/profile_image/:id' , (req,res) =>
 {
     const _id = req.params.id;
-    console.log(req.body.file);
+    
     upload(req,res,(err) => {
-        if(err)
+        if(req.file == null)
         {
-            console.log(err);
-            return res.send(err);
+            console.log('Undefined File');
+            return res.send('Undefined File');
         }else 
         {
             const uploadImage = new imagemodel({
                 image : {
                     id : _id,
-                    data : req.file.filename,
+                    data : req.file.path,
                     contentType : 'image/png'
                 }
             });
-
-           const uploadedImage = uploadImage.save()
+            uploadImage.save()
             .then(() => {
-                
-                const updatedUser = User.findByIdAndUpdate(_id, {profile_image : req.file.path});
-
-                console.log('Successfull');
-                console.log(updatedUser);
-                return res.send(updatedUser);
+                console.log('Image Uploaded to Database Successfull');
+                User.findByIdAndUpdate(_id, {profile_image : req.file.path}, (err,docs) => 
+                {
+                    if (err)
+                    {
+                        console.log(`Error Occured: ${err}`);
+                        return res.send(err);
+                    }else 
+                    {
+                        console.log('Profile Image Updated for user : ', docs);
+                        return res.send('Profile Image Updated');
+                    }
+                });
             }).catch(err)
             {
                 console.log(err);
@@ -62,7 +70,6 @@ router.get('/profile_image/:id', async (req,res) =>
     const _id = req.params.id;
     const imageData =  await imagemodel.findById(_id);
 
-    //const base64Data = Buffer.from(imageData.image.data,'binary').toString('base64url');
     return res.json(imageData);
 
    } catch (err)

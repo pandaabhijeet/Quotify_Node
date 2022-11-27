@@ -17,5 +17,7 @@ quotifyApp.use('/api/user', authRoutes);
 quotifyApp.use('/api/post', postRoutes);
 quotifyApp.use('/profile_image', express.static('profile_image'));
 
+//const PORT = String(process.env.PORT || 3000);
+
 const PORT = String(process.env.PORT || 3000);
 quotifyApp.listen(PORT, () => console.log('Server is Up and Running !'));

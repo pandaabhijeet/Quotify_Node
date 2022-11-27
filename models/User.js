@@ -29,7 +29,7 @@ date : {
 },
 
 profile_image : {
-    type : imagemodel
+    type : String
 },
 
 fav_quote : {
