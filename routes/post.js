@@ -20,9 +20,9 @@ router.get('/',async (req,res) =>
     }
 });
 
-router.post('/profile_image/:id' , (req,res) =>
+router.post('/profile_image' , (req,res) =>
 {
-    const _id = req.params.id;
+    const _id = req.body.id;
     
     upload(req,res,(err) => {
         if(req.file == null)
