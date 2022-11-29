@@ -22,7 +22,7 @@ router.get('/',async (req,res) =>
 
 router.post('/profile_image' , (req,res) =>
 {
-    const _id = req.body.id;
+    const _id = req.body.userId;
     
     upload(req,res,(err) => {
         if(req.file == null)
@@ -46,16 +46,25 @@ router.post('/profile_image' , (req,res) =>
                     if (err)
                     {
                         console.log(`Error Occured: ${err}`);
-                        return res.send(err);
+                        return res.send({
+                            success : false,
+                            error : err
+                        });
                     }else 
                     {
                         console.log('Profile Image Updated for user : ', docs);
-                        return res.send('Profile Image Updated');
+                        return res.send({
+                            success : true
+                        });
                     }
                 });
             }).catch(err)
             {
                 console.log(err);
+                return res.send({
+                    success : false,
+                    error : err
+                });
             }
         }
 
