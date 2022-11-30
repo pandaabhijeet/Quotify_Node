@@ -23,7 +23,7 @@ router.get('/',async (req,res) =>
 router.post('/profile_image' , (req,res) =>
 {
     const _id = req.body.userId;
-    console.log(_id);
+    console.log(`User id: ${_id}`);
     
     upload(req,res,(err) => {
         if(req.file == null)
