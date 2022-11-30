@@ -23,6 +23,7 @@ router.get('/',async (req,res) =>
 router.post('/profile_image' , (req,res) =>
 {
     const _id = req.body.userId;
+    console.log(_id);
     
     upload(req,res,(err) => {
         if(req.file == null)
@@ -35,7 +36,7 @@ router.post('/profile_image' , (req,res) =>
                 image : {
                     id : _id,
                     data : req.file.path,
-                    contentType : 'image/png'
+                    contentType : 'image/jpg'
                 }
             });
             uploadImage.save()
