@@ -21,53 +21,67 @@ router.get('/',async (req,res) =>
 });
 
 router.post('/profile_image' , (req,res) =>
-{
-    const _id = req.body.userId;
-    console.log(`User id: ${_id}`);
-    
+{   
     upload(req,res,(err) => {
+
+        if(!err)
+        {
         if(req.file == null)
         {
             console.log('Undefined File');
             return res.send('Undefined File');
         }else 
         {
+            const user_id = req.body.userId;
+            console.log(`User id: ${user_id}`);
+
             const uploadImage = new imagemodel({
                 image : {
-                    id : _id,
+                    id : user_id,
                     data : req.file.path,
                     contentType : 'image/jpg'
                 }
             });
             uploadImage.save()
-            .then(() => {
-                console.log('Image Uploaded to Database Successfull');
-                User.findByIdAndUpdate(_id, {profile_image : req.file.path}, (err,docs) => 
+            .then(async () => {
+                console.log('Image Uploaded to Database Successfully');
+                
+                const user_exists = await User.findById(user_id)
                 {
-                    if (err)
+                    if(user_exists)
                     {
-                        console.log(`Error Occured: ${err}`);
-                        return res.send({
-                            success : false,
-                            error : err
-                        });
+                        user_exists.updateOne({profile_image : req.file.path},
+                            (err) =>
+                            {
+                                if(err)
+                                {
+                                    console.log(`error occured: ${err}`);
+                                    return res.send({
+                                        success:false,
+                                        error : err
+                                    })
+                                }else 
+                                {
+                                    console.log(`Profile Image Updated: ${user_exists}`);
+                                    return res.send({
+                                        success :true,
+                                    })
+                                }
+                            })
                     }else 
                     {
-                        console.log('Profile Image Updated for user : ', docs);
-                        return res.send({
-                            success : true
-                        });
+                        console.log('User does not exist, cannot update profile image');
+                        return res.send ({
+                            success : false,
+                            error : 'User does not exist,cannot update profile image'
+                        })
                     }
-                });
-            }).catch(err)
-            {
-                console.log(err);
-                return res.send({
-                    success : false,
-                    error : err
-                });
-            }
+                }
+                    
+               
+            })
         }
+    }
 
        
     })
