@@ -26,15 +26,15 @@ router.post('/profile_image' , (req,res) =>
 
         if(!err)
         {
-        if(req.file == null)
-        {
-            console.log('Undefined File');
-            return res.send({
-                success:false,
-                error : `undefined file`
-            });
-        }else 
-        {
+        // if(req.file == null)
+        // {
+        //     console.log('Undefined File');
+        //     return res.send({
+        //         success:false,
+        //         error : `undefined file`
+        //     });
+        // }else 
+        // {
             const user_id = req.body.userId;
             console.log(`User id: ${user_id}`);
 
@@ -83,7 +83,7 @@ router.post('/profile_image' , (req,res) =>
                     
                
             })
-        }
+        //}
     }
 
        
