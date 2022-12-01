@@ -29,7 +29,10 @@ router.post('/profile_image' , (req,res) =>
         if(req.file == null)
         {
             console.log('Undefined File');
-            return res.send('Undefined File');
+            return res.send({
+                success:false,
+                error : `undefined file`
+            });
         }else 
         {
             const user_id = req.body.userId;
