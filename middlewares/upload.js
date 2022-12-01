@@ -26,6 +26,7 @@ var upload = multer({
           }else 
           {
             console.log("File format not accepted.");
+            console.log(file.filename);
             callback(null,false);
           }
     },
