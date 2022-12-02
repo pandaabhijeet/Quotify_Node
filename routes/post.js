@@ -23,28 +23,19 @@ router.get('/',async (req,res) =>
 router.post('/profile_image' , (req,res) =>
 {   
 
-    if(req.file == null)
-    {
-        console.log('File not reaching')
-        return res.send({
-            success :false,
-            error : 'File not reaching'
-        })
-    }
-    
     upload(req,res,(err) => {
 
         if(!err)
         {
-        if(req.file == null)
-        {
-            console.log('Undefined File');
-            return res.send({
-                success:false,
-                error : `undefined file`
-            });
-        }else 
-        {
+        // if(req.body.file == null)
+        // {
+        //     console.log('Undefined File');
+        //     return res.send({
+        //         success:false,
+        //         error : `undefined file`
+        //     });
+        // }else 
+        // {
             const user_id = req.body.userId;
             console.log(`User id: ${user_id}`);
 
@@ -93,7 +84,7 @@ router.post('/profile_image' , (req,res) =>
                     
                
             })
-        }
+        //}
     }
 
        
