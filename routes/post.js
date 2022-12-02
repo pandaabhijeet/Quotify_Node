@@ -22,6 +22,16 @@ router.get('/',async (req,res) =>
 
 router.post('/profile_image' , (req,res) =>
 {   
+
+    if(req.file == null)
+    {
+        console.log('File not reaching')
+        return res.send({
+            success :false,
+            error : 'File not reaching'
+        })
+    }
+    
     upload(req,res,(err) => {
 
         if(!err)
