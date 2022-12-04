@@ -27,7 +27,7 @@ router.post('/profile_image' , (req,res) =>
 
         if(!err)
         {
-        if(req.body.file == null)
+        if(req.file == null)
         {
             console.log('Undefined File');
             return res.send({
