@@ -108,5 +108,36 @@ router.get('/profile_image/:id', async (req,res) =>
    
 }); 
 
+router.get('/user', async (req,res) =>
+{
+    try{
+        const _id = req.body.userId;
+
+        const getUser = await User.findById(_id);
+
+        if(getUser)
+        {
+            return res.send(
+                {
+                    id : getUser._id,
+                    username : getUser.username,
+                    password : getUser.password,
+                    email : getUser.email,
+                    profile_image : getUser.profile_image,
+                    fav_quote : getUser.fav_quote,
+                    success : true
+                });
+        }
+    }catch(err)
+    {
+        console.log(err);
+        return res.send (
+            {
+                success : false,
+                error : err
+            });
+    }
+});
+
 
 module.exports = router;
