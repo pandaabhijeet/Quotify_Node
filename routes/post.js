@@ -108,11 +108,12 @@ router.get('/profile_image/:id', async (req,res) =>
    
 }); 
 
-router.get('/user', async (req,res) =>
+router.get('/:user', async (req,res) =>
 {
     try{
-        const _id = req.body.userId;
-
+        const _id = req.params.user;
+        console.log(`user_id : ${_id}`);
+        
         const getUser = await User.findById(_id);
 
         if(getUser)
